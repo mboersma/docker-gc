@@ -16,6 +16,8 @@ RUN apk --update add bash curl \
 
 COPY ./docker-gc /docker-gc
 
+ADD crontab /var/spool/cron/crontabs/root
+
 VOLUME /var/lib/docker-gc
 
-CMD ["/docker-gc"]
+CMD ["crond", "-f", "-l", "6", "-L", "/dev/stdout"]
